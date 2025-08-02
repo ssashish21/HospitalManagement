@@ -4,10 +4,14 @@ import com.ashish.hospital.hospitalManagement.entity.enums.BloodGroupType;
 import com.ashish.hospital.hospitalManagement.entity.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import static jakarta.persistence.CascadeType.*;
 
 @Entity
 @Getter
@@ -49,10 +53,11 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
 
-    @OneToOne // owning side
+    @OneToOne(cascade = {MERGE, PERSIST}) // owning side
     @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient")
-    private List<Appointment> appointments;
+    @ToString.Exclude
+    private List<Appointment> appointments = new ArrayList<>();
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,7 +26,7 @@ public class Insurance {
     private String provider;
 
     @Column(nullable = false)
-    private LocalDateTime validUntil;
+    private LocalDate validUntil;
 
     @CreationTimestamp
     @Column(updatable = false)

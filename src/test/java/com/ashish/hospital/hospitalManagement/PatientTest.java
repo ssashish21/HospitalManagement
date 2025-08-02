@@ -29,8 +29,8 @@ public class PatientTest {
     @Test
     public void addPatient(){
         Patient patient = new Patient();
-        patient.setName("Ashish Pradhan");
-        patient.setEmail("ashish1@email.com");
+        patient.setName("Ashish");
+        patient.setEmail("ashish@email.com");
         patient.setBirthDate(LocalDateTime.of(1997, 07,29, 10, 45));
         patient.setGender(Gender.MALE);
         patient.setBloodGroup(BloodGroupType.O_POSITIVE);
@@ -39,7 +39,7 @@ public class PatientTest {
 
     @Test
     public void getPatient(){
-        Patient patient = patientService.getPatientById(1L);
+        Patient patient = patientService.getPatientById(2L);
         System.out.println(patient);
     }
 }
