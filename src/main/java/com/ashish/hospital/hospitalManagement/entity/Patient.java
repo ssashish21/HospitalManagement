@@ -52,7 +52,8 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
 
-    @OneToOne(cascade = {MERGE, PERSIST}) // owning side
+    //@OneToOne(cascade = {MERGE, PERSIST}) // owning side
+    @OneToOne(cascade = {ALL}, orphanRemoval = true) // I want to remove the orphan record once I detach from insurance
     @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
 

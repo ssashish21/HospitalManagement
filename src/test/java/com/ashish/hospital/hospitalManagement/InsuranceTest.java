@@ -1,5 +1,7 @@
 package com.ashish.hospital.hospitalManagement;
 
+import com.ashish.hospital.hospitalManagement.dtos.insurance.InsuranceRequest;
+import com.ashish.hospital.hospitalManagement.dtos.insurance.InsuranceResponse;
 import com.ashish.hospital.hospitalManagement.entity.Insurance;
 import com.ashish.hospital.hospitalManagement.entity.Patient;
 import com.ashish.hospital.hospitalManagement.repository.InsuranceRepository;
@@ -17,11 +19,10 @@ public class InsuranceTest {
     @Autowired
     private InsuranceRepository insuranceRepository;
 
-    @Test
-    public void addInsurance(){
-        Insurance insurance = insuranceRepository.findById(5L).orElseThrow();
 
-        Patient patient = insuranceService.assignInsuranceToPatient(insurance, 2L);
+    public void addInsurance(){
+
+        InsuranceResponse patient = insuranceService.assignInsuranceToPatient(1L,new InsuranceRequest());
         System.out.println(patient);
 
     }

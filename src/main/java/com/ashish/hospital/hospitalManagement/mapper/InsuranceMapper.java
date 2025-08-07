@@ -9,10 +9,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface InsuranceMapper {
     Insurance toEntity(InsuranceRequest request);
     InsuranceResponse toResponse(Insurance insurance);
+
+    List<InsuranceResponse> toResponseList(List<Insurance> insurances);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateFromRequest(InsuranceRequest request, @MappingTarget Insurance insurance);
