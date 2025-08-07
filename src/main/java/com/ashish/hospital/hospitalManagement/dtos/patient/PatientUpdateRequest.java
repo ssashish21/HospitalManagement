@@ -1,4 +1,4 @@
-package com.ashish.hospital.hospitalManagement.DTOs;
+package com.ashish.hospital.hospitalManagement.dtos.patient;
 
 import lombok.Data;
 
@@ -11,5 +11,4 @@ public class PatientUpdateRequest {
     private LocalDate birthDate;
     private String gender;
     private String bloodGroup;
-    private Long patientInsuranceId;
 }

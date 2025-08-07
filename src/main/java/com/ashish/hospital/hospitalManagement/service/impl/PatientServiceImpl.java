@@ -1,6 +1,6 @@
 package com.ashish.hospital.hospitalManagement.service.impl;
 
-import com.ashish.hospital.hospitalManagement.DTOs.PatientUpdateRequest;
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientUpdateRequest;
 import com.ashish.hospital.hospitalManagement.entity.Insurance;
 import com.ashish.hospital.hospitalManagement.entity.Patient;
 import com.ashish.hospital.hospitalManagement.exception.ResourceNotFoundException;
