@@ -29,9 +29,11 @@ public class Doctor {
     private String email;
 
     @OneToMany(mappedBy = "doctor")
+    @ToString.Exclude
     private List<Appointment> appointments;
 
     @ManyToMany(mappedBy = "doctors")
+    @ToString.Exclude
     private Set<Department> departments;
 
 }
