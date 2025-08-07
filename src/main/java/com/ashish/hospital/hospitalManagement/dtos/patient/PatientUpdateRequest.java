@@ -1,14 +1,22 @@
 package com.ashish.hospital.hospitalManagement.dtos.patient;
 
-import lombok.Data;
+import com.ashish.hospital.hospitalManagement.entity.enums.BloodGroupType;
+import com.ashish.hospital.hospitalManagement.entity.enums.Gender;
+import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Data
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PatientUpdateRequest {
     private String name;
+    private LocalDateTime birthDate;
     private String email;
-    private LocalDate birthDate;
-    private String gender;
-    private String bloodGroup;
+    private Gender gender;
+    private BloodGroupType bloodGroup;
+    private Long insuranceId;
 }
