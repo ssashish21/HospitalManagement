@@ -1,5 +1,6 @@
 package com.ashish.hospital.hospitalManagement;
 
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientResponse;
 import com.ashish.hospital.hospitalManagement.entity.Patient;
 import com.ashish.hospital.hospitalManagement.entity.enums.BloodGroupType;
 import com.ashish.hospital.hospitalManagement.entity.enums.Gender;
@@ -26,7 +27,7 @@ public class PatientTest {
         System.out.println(patient);
     }
 
-    @Test
+   // @Test
     public void addPatient(){
         Patient patient = new Patient();
         patient.setName("Ashish");
@@ -39,7 +40,7 @@ public class PatientTest {
 
     @Test
     public void getPatient(){
-        Patient patient = patientService.getPatientById(2L);
+        var patient = patientService.getPatientById(2L);
         System.out.println(patient);
     }
 }

@@ -1,16 +1,17 @@
 package com.ashish.hospital.hospitalManagement.service;
 
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientCreateRequest;
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientResponse;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientUpdateRequest;
 import com.ashish.hospital.hospitalManagement.entity.Insurance;
-import com.ashish.hospital.hospitalManagement.entity.Patient;
 
 import java.util.List;
 
 public interface PatientService {
-    Patient createPatient(Patient patient);
-    List<Patient> getAllPatients();
-    Patient getPatientById(Long id);
-    Patient updatePatient(Long id, PatientUpdateRequest updatedPatient);
+    PatientResponse createPatient(PatientCreateRequest patient);
+    List<PatientResponse> getAllPatients();
+    PatientResponse getPatientById(Long id);
+    PatientResponse updatePatient(Long id, PatientUpdateRequest updatedPatient);
     void deletePatient(Long id);
     Insurance getPatientInsurance(Long patientId);
 }
