@@ -11,12 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/hospital/patients")
 public class PatientRestController {
+
     @Autowired
     private PatientService patientService;
 
@@ -24,23 +25,29 @@ public class PatientRestController {
     private InsuranceMapper insuranceMapper;
 
     @PostMapping
-    public PatientResponse createPatient(@RequestBody PatientCreateRequest patient){
-        return patientService.createPatient(patient);
+    public ResponseEntity<PatientResponse> createPatient(@RequestBody PatientCreateRequest patient) {
+        PatientResponse createdPatient = patientService.createPatient(patient);
+        return ResponseEntity
+                .created(URI.create("/hospital/patients/" + createdPatient.getId()))
+                .body(createdPatient);
     }
 
     @GetMapping
-    public List<PatientResponse> getAllPatients(){
-        return patientService.getAllPatients();
+    public ResponseEntity<List<PatientResponse>> getAllPatients() {
+        List<PatientResponse> patients = patientService.getAllPatients();
+        return ResponseEntity.ok(patients);
     }
 
     @GetMapping("/{id}")
-    public PatientResponse getPatientById(@PathVariable Long id){
-        return patientService.getPatientById(id);
+    public ResponseEntity<PatientResponse> getPatientById(@PathVariable Long id) {
+        PatientResponse patient = patientService.getPatientById(id);
+        return ResponseEntity.ok(patient);
     }
 
     @PutMapping("/{id}")
-    public PatientResponse updatePatient(@PathVariable Long id, @RequestBody PatientUpdateRequest updateRequest){
-        return patientService.updatePatient(id, updateRequest);
+    public ResponseEntity<PatientResponse> updatePatient(@PathVariable Long id, @RequestBody PatientUpdateRequest updateRequest) {
+        PatientResponse updatedPatient = patientService.updatePatient(id, updateRequest);
+        return ResponseEntity.ok(updatedPatient);
     }
 
     @DeleteMapping("/{id}")
@@ -56,4 +63,3 @@ public class PatientRestController {
         return ResponseEntity.ok(response);
     }
 }
-

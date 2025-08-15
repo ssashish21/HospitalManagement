@@ -22,5 +22,5 @@ public class PatientCreateRequest {
     private String email;
     private Gender gender;
     private BloodGroupType bloodGroup;
-    private Long insuranceId; // Just reference
+    private Long insuranceId; // Reference
 }

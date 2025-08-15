@@ -21,7 +21,7 @@ import static jakarta.persistence.CascadeType.*;
 @AllArgsConstructor
 @Table(
         uniqueConstraints = {
-                @UniqueConstraint(name = "unique_patient_email", columnNames = {"email"}),
+                //@UniqueConstraint(name = "unique_patient_email", columnNames = {"email"}), // for a single column we can directly set unique = true
                 @UniqueConstraint(name = "unique_patient_name_birthDate", columnNames = {"name", "birthDate"})
         },
         indexes = {
@@ -53,8 +53,8 @@ public class Patient {
     private BloodGroupType bloodGroup;
 
     //@OneToOne(cascade = {MERGE, PERSIST}) // owning side
-    @OneToOne(cascade = {ALL}, orphanRemoval = true) // I want to remove the orphan record once I detach from insurance
-    @JoinColumn(name = "patient_insurance_id")
+    @OneToOne(cascade = {ALL}, orphanRemoval = true) // I want to remove the orphan record(insurance) once I detach from insurance
+    @JoinColumn(name = "patient_insurance_id") // Here we renamed it otherwise auto create join column insurance_id
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient")
