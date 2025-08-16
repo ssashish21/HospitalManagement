@@ -12,6 +12,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @ToString
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "unique_doctor_appointment_time", columnNames = {"doctor_id", "appointment_time"})
+        },
+        indexes = {
+                @Index(name = "idx_appointment_time", columnList = "appointment_time"),
+                @Index(name = "idx_doctor", columnList = "doctor_id"),
+                @Index(name = "idx_doctor_appointment_time", columnList = "doctor_id, appointment_time")
+        }
+)
 public class Appointment {
 
     @Id
@@ -29,6 +39,6 @@ public class Appointment {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 }

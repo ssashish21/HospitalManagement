@@ -2,6 +2,7 @@ package com.ashish.hospital.hospitalManagement.entity;
 
 import com.ashish.hospital.hospitalManagement.entity.enums.BloodGroupType;
 import com.ashish.hospital.hospitalManagement.entity.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -58,6 +59,17 @@ public class Patient {
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient")
+    @JsonIgnore
     @ToString.Exclude
     private List<Appointment> appointments = new ArrayList<>();
+
+    public void addAppointment(Appointment appointment){
+        appointments.add(appointment);
+        appointment.setPatient(this);
+    }
+
+    public void removeAppointment(Appointment appointment){
+        appointments.remove(appointment);
+        appointment.setPatient(null);
+    }
 }
