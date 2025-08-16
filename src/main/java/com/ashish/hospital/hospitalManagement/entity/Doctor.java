@@ -1,5 +1,6 @@
 package com.ashish.hospital.hospitalManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,10 +31,20 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor")
     @ToString.Exclude
+    @JsonIgnore
     private List<Appointment> appointments;
 
     @ManyToMany(mappedBy = "doctors")
     @ToString.Exclude
     private Set<Department> departments;
 
+    public void addAppointment(Appointment appointment){
+        appointments.add(appointment);
+        appointment.setDoctor(this);
+    }
+
+    public void removeAppointment(Appointment appointment){
+        appointments.remove(appointment);
+        appointment.setDoctor(null);
+    }
 }

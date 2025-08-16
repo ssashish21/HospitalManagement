@@ -1,8 +1,7 @@
 package com.ashish.hospital.hospitalManagement.dtos.appointment;
 
-import com.ashish.hospital.hospitalManagement.entity.Doctor;
-import com.ashish.hospital.hospitalManagement.entity.Patient;
-import jakarta.validation.constraints.*;
+import com.ashish.hospital.hospitalManagement.dtos.doctor.DoctorResponse;
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientResponse;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,6 +11,6 @@ public class AppointmentResponse {
     private Long id;
     private LocalDateTime appointmentTime;
     private String reason;
-    private Patient patient;
-    private Doctor doctor;
+    private PatientResponse patient;
+    private DoctorResponse doctor;
 }

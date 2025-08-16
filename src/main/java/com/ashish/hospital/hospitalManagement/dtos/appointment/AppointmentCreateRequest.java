@@ -17,8 +17,8 @@ public class AppointmentCreateRequest {
     private String reason;
 
     @NotNull
-    private Patient patient;
+    private Long patientId;
 
     @NotNull
-    private Doctor doctor;
+    private Long doctorId;
 }
