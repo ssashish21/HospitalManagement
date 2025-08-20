@@ -12,7 +12,7 @@ public interface DoctorService {
     List<DoctorAppointmentSummaryResponse> getAppointmentsByDoctorId(Long doctorId);
     List<DoctorDepartmentSummaryResponse> getDepartmentsByDoctorId(Long doctorId);
 
-    DoctorResponse createDoctor(DoctorCreateRequest doctor);
-    DoctorResponse updateDoctor(Long id, DoctorUpdateRequest updatedDoctor);
+    DoctorDetailResponse createDoctor(DoctorCreateRequest doctor);
+    DoctorDetailResponse updateDoctor(Long id, DoctorUpdateRequest updatedDoctor);
     void deleteDoctor(Long id);
 }

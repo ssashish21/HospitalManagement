@@ -18,6 +18,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -61,28 +62,36 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorResponse createDoctor(DoctorCreateRequest request) {
+    @Transactional
+    public DoctorDetailResponse createDoctor(DoctorCreateRequest request) {
         Doctor doctor = doctorMapper.toEntity(request);
         Doctor savedDoctor = doctorRepository.save(doctor);
 
-        return doctorMapper.toResponse(savedDoctor);
+        return doctorMapper.toDetailResponse(savedDoctor);
     }
 
     @Override
     @Transactional
-    public DoctorResponse updateDoctor(Long id, DoctorUpdateRequest updatedDoctor) {
+    public DoctorDetailResponse updateDoctor(Long id, DoctorUpdateRequest request) {
         Doctor existing = doctorRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Doctor not found with id " + id));
-        doctorMapper.updateFromRequest(updatedDoctor, existing);
+                .orElseThrow(()-> new ResourceNotFoundException("Doctor not found with id " + id));
+        doctorMapper.updateFromRequest(request, existing);
 
         Doctor updated = doctorRepository.save(existing);
 
-        return doctorMapper.toResponse(updated);
+        return doctorMapper.toDetailResponse(updated);
     }
 
     @Override
+    @Transactional
     public void deleteDoctor(Long id) {
-        doctorRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Doctor not found with id " + id));
+        Doctor doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor not found with id " + id));
+
+        if(!doctor.getAppointments().isEmpty()){
+            throw new IllegalStateException("Doctor cannot be deleted because appointments exist. Cancel appointments first.");
+        }
+
         doctorRepository.deleteById(id);
     }
 

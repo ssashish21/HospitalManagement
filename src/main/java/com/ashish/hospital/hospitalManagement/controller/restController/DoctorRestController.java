@@ -36,13 +36,13 @@ public class DoctorRestController {
     }
 
     @PostMapping
-    public ResponseEntity<DoctorResponse> createDoctor(@RequestBody DoctorCreateRequest doctor) {
-        return ResponseEntity.ok(doctorService.createDoctor(doctor));
+    public ResponseEntity<DoctorDetailResponse> createDoctor(@RequestBody DoctorCreateRequest request) {
+        return ResponseEntity.ok(doctorService.createDoctor(request));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DoctorResponse> updateDoctor(@PathVariable Long id, @RequestBody DoctorUpdateRequest updatedDoctor) {
-        return ResponseEntity.ok(doctorService.updateDoctor(id, updatedDoctor));
+    public ResponseEntity<DoctorDetailResponse> updateDoctor(@PathVariable Long id, @RequestBody DoctorUpdateRequest request) {
+        return ResponseEntity.ok(doctorService.updateDoctor(id, request));
     }
 
     @DeleteMapping("/{id}")

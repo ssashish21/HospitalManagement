@@ -35,6 +35,7 @@ public class Doctor {
 
     @ManyToMany(mappedBy = "doctors")
     @ToString.Exclude
+    @JsonIgnore
     private Set<Department> departments;
 
     public void addAppointment(Appointment appointment){
