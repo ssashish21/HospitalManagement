@@ -7,6 +7,8 @@ import com.ashish.hospital.hospitalManagement.dtos.patient.PatientUpdateRequest;
 import com.ashish.hospital.hospitalManagement.entity.Appointment;
 import com.ashish.hospital.hospitalManagement.entity.Insurance;
 import com.ashish.hospital.hospitalManagement.entity.Patient;
+import com.ashish.hospital.hospitalManagement.entity.enums.BloodGroupType;
+import com.ashish.hospital.hospitalManagement.entity.enums.Gender;
 import com.ashish.hospital.hospitalManagement.exception.ResourceNotFoundException;
 import com.ashish.hospital.hospitalManagement.mapper.AppointmentMapper;
 import com.ashish.hospital.hospitalManagement.mapper.PatientMapper;
@@ -84,5 +86,16 @@ public class PatientServiceImpl implements PatientService {
     public Insurance getPatientInsurance(Long patientId) {
         return patientRepository.findInsuranceByPatientId(patientId)
                 .orElseThrow(() -> new EntityNotFoundException("Insurance not found for patient with ID: " + patientId));
+    }
+
+    @Override
+    public List<PatientResponse> getAllPatientsByFilters(String name, Gender gender, BloodGroupType bloodGroup) {
+        List<Patient> patients = patientRepository.findAll().stream()
+                .filter(p -> (name == null || p.getName().equalsIgnoreCase(name)))
+                .filter(p -> ((gender == null) || (p.getGender() == gender)))
+                .filter(p -> (bloodGroup == null || p.getBloodGroup() == bloodGroup))
+                .toList();
+
+        return patientMapper.toResponseList(patients);
     }
 }

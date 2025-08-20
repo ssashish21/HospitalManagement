@@ -6,6 +6,8 @@ import com.ashish.hospital.hospitalManagement.dtos.patient.PatientCreateRequest;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientResponse;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientUpdateRequest;
 import com.ashish.hospital.hospitalManagement.entity.Insurance;
+import com.ashish.hospital.hospitalManagement.entity.enums.BloodGroupType;
+import com.ashish.hospital.hospitalManagement.entity.enums.Gender;
 import com.ashish.hospital.hospitalManagement.mapper.InsuranceMapper;
 import com.ashish.hospital.hospitalManagement.service.PatientService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,16 @@ public class PatientRestController {
     @GetMapping
     public ResponseEntity<List<PatientResponse>> getAllPatients() {
         List<PatientResponse> patients = patientService.getAllPatients();
+        return ResponseEntity.ok(patients);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<PatientResponse>> getAllPatientByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Gender gender,
+            @RequestParam(required = false) BloodGroupType bloodGroup
+    ){
+        List<PatientResponse> patients = patientService.getAllPatientsByFilters(name, gender, bloodGroup);
         return ResponseEntity.ok(patients);
     }
 
