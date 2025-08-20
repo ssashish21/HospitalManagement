@@ -1,5 +1,6 @@
 package com.ashish.hospital.hospitalManagement.service;
 
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientAppointmentSummaryResponse;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientCreateRequest;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientResponse;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientUpdateRequest;
@@ -11,6 +12,7 @@ public interface PatientService {
     PatientResponse createPatient(PatientCreateRequest patient);
     List<PatientResponse> getAllPatients();
     PatientResponse getPatientById(Long id);
+    List<PatientAppointmentSummaryResponse> getAppointmentsByPatientId(Long id);
     PatientResponse updatePatient(Long id, PatientUpdateRequest updatedPatient);
     void deletePatient(Long id);
     Insurance getPatientInsurance(Long patientId);

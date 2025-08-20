@@ -1,28 +1,34 @@
 package com.ashish.hospital.hospitalManagement.service.impl;
 
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientAppointmentSummaryResponse;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientCreateRequest;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientResponse;
 import com.ashish.hospital.hospitalManagement.dtos.patient.PatientUpdateRequest;
+import com.ashish.hospital.hospitalManagement.entity.Appointment;
 import com.ashish.hospital.hospitalManagement.entity.Insurance;
 import com.ashish.hospital.hospitalManagement.entity.Patient;
 import com.ashish.hospital.hospitalManagement.exception.ResourceNotFoundException;
+import com.ashish.hospital.hospitalManagement.mapper.AppointmentMapper;
 import com.ashish.hospital.hospitalManagement.mapper.PatientMapper;
+import com.ashish.hospital.hospitalManagement.repository.AppointmentRepository;
 import com.ashish.hospital.hospitalManagement.repository.PatientRepository;
 import com.ashish.hospital.hospitalManagement.service.PatientService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
-    @Autowired
-    private PatientMapper patientMapper;
+    private final PatientRepository patientRepository;
+    private final AppointmentRepository appointmentRepository;
+
+    private final PatientMapper patientMapper;
+    private final AppointmentMapper appointmentMapper;
 
     @Override
     public PatientResponse createPatient(PatientCreateRequest request) {
@@ -36,18 +42,19 @@ public class PatientServiceImpl implements PatientService {
     public List<PatientResponse> getAllPatients() {
         List<Patient> patients = patientRepository.findAll();
         List<PatientResponse> responsesList = new ArrayList<>();
-
-        for(Patient patient: patients){
-            responsesList.add(patientMapper.toResponse(patient));
-        }
-
-        return responsesList;
+        return patientMapper.toResponseList(patients);
     }
 
     @Override
     public PatientResponse getPatientById(Long id) {
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + id));
         return patientMapper.toResponse(patient);
+    }
+
+    @Override
+    public List<PatientAppointmentSummaryResponse> getAppointmentsByPatientId(Long id) {
+        List<Appointment> appointments = appointmentRepository.findByPatientId(id);
+        return appointmentMapper.toPatientSummaryResponseList(appointments);
     }
 
     @Override
@@ -64,12 +71,15 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void deletePatient(Long id) {
-        patientRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Patient not found with id: " + id));
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found with id: " + id));
 
+        if(!patient.getAppointments().isEmpty()){
+            throw new IllegalStateException("Patient cannot be deleted because appointments exist. Cancel appointments first.");
+        }
         patientRepository.deleteById(id);
     }
 
-    //TODO
     @Override
     public Insurance getPatientInsurance(Long patientId) {
         return patientRepository.findInsuranceByPatientId(patientId)
