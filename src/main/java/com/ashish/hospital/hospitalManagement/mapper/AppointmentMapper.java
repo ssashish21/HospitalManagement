@@ -4,6 +4,7 @@ import com.ashish.hospital.hospitalManagement.dtos.appointment.AppointmentCreate
 import com.ashish.hospital.hospitalManagement.dtos.appointment.AppointmentResponse;
 import com.ashish.hospital.hospitalManagement.dtos.appointment.AppointmentUpdateRequest;
 import com.ashish.hospital.hospitalManagement.dtos.doctor.DoctorAppointmentSummaryResponse;
+import com.ashish.hospital.hospitalManagement.dtos.patient.PatientAppointmentSummaryResponse;
 import com.ashish.hospital.hospitalManagement.entity.Appointment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,4 +28,13 @@ public interface AppointmentMapper {
     DoctorAppointmentSummaryResponse toDoctorSummaryResponse(Appointment appointment);
 
     List<DoctorAppointmentSummaryResponse> toDoctorSummaryResponseList(List<Appointment> appointments);
+
+    @Mapping(source = "id", target = "appointmentId")
+    @Mapping(source = "doctor.id", target = "doctorId")
+    @Mapping(source = "doctor.name", target = "doctorName")
+    @Mapping(source = "appointmentTime", target = "appointmentTime")
+    @Mapping(source = "reason", target = "reason")
+    PatientAppointmentSummaryResponse toPatientSummaryResponse(Appointment appointment);
+
+    List<PatientAppointmentSummaryResponse> toPatientSummaryResponseList(List<Appointment> appointments);
 }
