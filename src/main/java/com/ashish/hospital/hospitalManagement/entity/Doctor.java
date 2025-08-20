@@ -15,7 +15,6 @@ import java.util.Set;
 @Builder
 @ToString
 public class Doctor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +35,7 @@ public class Doctor {
 
     @ManyToMany(mappedBy = "doctors")
     @ToString.Exclude
+    @JsonIgnore
     private Set<Department> departments;
 
     public void addAppointment(Appointment appointment){

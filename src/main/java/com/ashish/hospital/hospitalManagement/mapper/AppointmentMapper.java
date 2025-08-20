@@ -3,8 +3,10 @@ package com.ashish.hospital.hospitalManagement.mapper;
 import com.ashish.hospital.hospitalManagement.dtos.appointment.AppointmentCreateRequest;
 import com.ashish.hospital.hospitalManagement.dtos.appointment.AppointmentResponse;
 import com.ashish.hospital.hospitalManagement.dtos.appointment.AppointmentUpdateRequest;
+import com.ashish.hospital.hospitalManagement.dtos.doctor.DoctorAppointmentSummaryResponse;
 import com.ashish.hospital.hospitalManagement.entity.Appointment;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
@@ -16,4 +18,13 @@ public interface AppointmentMapper {
     void updateFromRequest(AppointmentUpdateRequest request,@MappingTarget Appointment appointment);
 
     List<AppointmentResponse> toResponseList(List<Appointment> appointments);
+
+    @Mapping(source = "id", target = "appointmentId")
+    @Mapping(source = "patient.id", target = "patientId")
+    @Mapping(source = "patient.name", target = "patientName")
+    @Mapping(source = "appointmentTime", target = "appointmentTime")
+    @Mapping(source = "reason", target = "reason")
+    DoctorAppointmentSummaryResponse toDoctorSummaryResponse(Appointment appointment);
+
+    List<DoctorAppointmentSummaryResponse> toDoctorSummaryResponseList(List<Appointment> appointments);
 }
