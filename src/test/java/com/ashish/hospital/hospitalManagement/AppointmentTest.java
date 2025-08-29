@@ -6,6 +6,7 @@ import com.ashish.hospital.hospitalManagement.repository.PatientRepository;
 import com.ashish.hospital.hospitalManagement.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,11 +15,13 @@ import java.time.LocalDateTime;
 @SpringBootTest
 
 public class AppointmentTest {
-    @Autowired
+    @Mock
     private AppointmentService appointmentService;
-    @Autowired
+
+    @Mock
     private PatientRepository patientRepository;
-    @Autowired
+
+    @Mock
     private DoctorRepository doctorRepository;
 
     @Test

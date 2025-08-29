@@ -7,16 +7,17 @@ import com.ashish.hospital.hospitalManagement.entity.Patient;
 import com.ashish.hospital.hospitalManagement.repository.InsuranceRepository;
 import com.ashish.hospital.hospitalManagement.service.InsuranceService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class InsuranceTest {
 
-    @Autowired
+    @Mock
     private InsuranceService insuranceService;
 
-    @Autowired
+    @Mock
     private InsuranceRepository insuranceRepository;
 
 

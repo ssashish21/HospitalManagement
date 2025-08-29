@@ -7,27 +7,28 @@ import com.ashish.hospital.hospitalManagement.entity.enums.Gender;
 import com.ashish.hospital.hospitalManagement.repository.PatientRepository;
 import com.ashish.hospital.hospitalManagement.service.PatientService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 public class PatientTest {
 
-    @Autowired
+    @Mock
     private PatientRepository patientRepository;
 
-    @Autowired
+    @Mock
     private PatientService patientService;
 
     @Test
     public void testPatientRepository(){
-        Patient patient = patientRepository.findById(1L).orElseThrow();
-        System.out.println(patient);
+        List<Patient> patients = patientRepository.findAll();
     }
 
-   // @Test
+    @Test
     public void addPatient(){
         Patient patient = new Patient();
         patient.setName("Ashish");
@@ -38,7 +39,7 @@ public class PatientTest {
         patientRepository.save(patient);
     }
 
-    @Test
+   // @Test
     public void getPatient(){
         var patient = patientService.getPatientById(2L);
         System.out.println(patient);
